@@ -1,13 +1,13 @@
 package model.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class UserBean {
 	
 	private String userId;
 	private String password;
 	private String userName;
-	private Timestamp updateDatetime;
+	private LocalDateTime updateDatetime;
 	
 	public String getUserId() {
 		return userId;
@@ -33,11 +33,11 @@ public class UserBean {
 		this.userName = userName;
 	}
 	
-	public Timestamp getUpdateDatetime() {
+	public LocalDateTime getUpdateDatetime() {
 		return updateDatetime;
 	}
 	
-	public void setUpdateDatetime(Timestamp updateDatetime) {
+	public void setUpdateDatetime(LocalDateTime updateDatetime) {
 		this.updateDatetime = updateDatetime;
 	}
 }
