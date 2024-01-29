@@ -7,9 +7,7 @@
 <title>メニュー画面</title>
 </head>
 <body>
-	<%
-		request.setCharacterEncoding("UTF-8");
-	%>
+	<% request.setCharacterEncoding("UTF-8"); %>
 	
 	<div>メニュー画面</div>
 	
