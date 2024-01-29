@@ -12,7 +12,7 @@ public class TaskBean {
 	private LocalDate limitDate;
 	private String userId;
 	private String userName;
-	private char statusCode;
+	private String statusCode;
 	private String statusName;
 	private String memo;
 	private LocalDateTime createDatetime;
@@ -72,11 +72,11 @@ public class TaskBean {
 		this.userName = userName;
 	}
 	
-	public char getStatusCode() {
+	public String getStatusCode() {
 		return statusCode;
 	}
 	
-	public void setStatusCode(char statusCode) {
+	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
 	
