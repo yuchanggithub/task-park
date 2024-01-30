@@ -4,24 +4,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import model.entity.TaskBean;
 
-public class TaskListDAO {
+public class TaskDetailDAO {
 	
 	/**
-	 * すべてのタスクを検索して、検索結果の入ったリストを返します
+	 * タスクIDに該当するタスクを検索して、検索結果のタスク情報を返します
 	 *
-	 * @return タスク一覧リスト
+	 * @param taskId 検索条件に入れるタスクID
+	 * @return タスク情報
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 
 	 */
-	public List<TaskBean> selectTaskAll() throws ClassNotFoundException, SQLException {
+	public TaskBean selectTaskDetail(int taskId) throws ClassNotFoundException, SQLException {
 		
-		/* TaskBean型のリストの生成 */
-		List<TaskBean> taskList = new ArrayList<TaskBean>();
+		/* TaskBeanクラスのインスタンスの生成 */
+		TaskBean bean = new TaskBean();
 		
 		/* 変数の初期化 */
 		String sql = "SELECT t.task_id, t.task_name, c.category_name, t.limit_date, u.user_name, s.status_name, t.memo, t.create_datetime, t.update_datetime\n"
@@ -29,20 +28,21 @@ public class TaskListDAO {
 				+ " (t_task t JOIN m_category c ON t.category_id = c.category_id)\n"
 				+ " JOIN m_user u ON t.user_id = u.user_id\n"
 				+ " JOIN m_status s ON t.status_code = s.status_code\n"
-				+ " ORDER BY t.task_id;"; // SQL文
+				+ " WHERE t.task_id = ?"; // SQL文
 		
 		/* データベースへの接続の取得、PreparedStatementの取得 */
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
+				PreparedStatement pstmt
+				= con.prepareStatement(sql)) {
+			
+			/* プレースホルダに値をセット */
+			pstmt.setInt(1, taskId);
 			
 			/* SQLステートメントの実行 */
 			ResultSet res = pstmt.executeQuery();
 			
-			/* 検索結果がなくなるまで繰り返すWhile文 */
-			while (res.next()) {
-				
-				/* TaskBean型のインスタンスを生成 */
-				TaskBean bean = new TaskBean();
+			/* 検索結果があればインスタンスに値を格納するif文 */
+			if (res.next()) {
 				
 				/* 検索結果の値をそれぞれインスタンスに格納 */
 				bean.setTaskId(res.getInt("task_id"));
@@ -54,12 +54,9 @@ public class TaskListDAO {
 				bean.setMemo(res.getString("memo"));
 				bean.setCreateDatetime(res.getTimestamp("create_datetime").toLocalDateTime());
 				bean.setUpdateDatetime(res.getTimestamp("update_datetime").toLocalDateTime());
-				
-				/* リストにインスタンスを追加 */
-				taskList.add(bean);
 			}
 		}
 		
-		return taskList;
+		return bean;
 	}
 }

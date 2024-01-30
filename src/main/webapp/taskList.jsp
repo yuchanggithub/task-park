@@ -34,7 +34,9 @@
 		<tbody>
 			<% for (TaskBean task : taskList) { %>
 			<tr>
-				<td><%=task.getTaskId() %></td>
+				<td>
+					<a href="taskDetailServlet?taskId=<%=task.getTaskId() %>"><%=task.getTaskId() %></a>
+				</td>
 				
 				<td><%=task.getTaskName() %></td>
 				
@@ -61,5 +63,9 @@
 			<% } %>
 		</tbody>
 	</table>
+	
+	<form action="menu.jsp">
+		<input type="submit" value="メニュー画面へ">
+	</form>
 </body>
 </html>
