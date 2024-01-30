@@ -13,7 +13,7 @@
 	
 	<div>ようこそ！<%=(String) session.getAttribute("userName") %>さん</div>
 	
-	<form action="taskRegisterServlet">
+	<form action="taskRegisterServlet" >
 		<input type="submit" value="タスク登録">
 	</form>
 	
