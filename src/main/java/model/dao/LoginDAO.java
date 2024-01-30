@@ -10,7 +10,7 @@ import model.entity.UserBean;
 public class LoginDAO {
 	
 	/**
-	 * ユーザIDとパスワードとソルトから安全なパスワードを生成し、返却します
+	 * ユーザIDとパスワードを使ってログイン処理をします
 	 *
 	 * @param bean ユーザIDとパスワードが格納されているUserBeanインスタンス
 	 * @return user_name もしくは null
